@@ -1,18 +1,20 @@
 [project]
 name = "alembic-squawk"
 version = "0.1.0"
-description = ""
-keywords = []
+description = "Extracts raw SQL from Alembic, splits it by revision, and saves each file individually for SQL linters like Squawk."
+keywords = ["alembic", "squawk", "sql", "linter"]
 readme = "README.md"
 requires-python = ">=3.11"
-dependencies = []
+dependencies = [
+    "click>=8.3.3",
+]
 authors = [{ name = "Michael Bianco", email = "mike@mikebian.co" }]
 urls = { "Repository" = "https://github.com/iloveitaly/alembic-squawk" }
 
 
 # additional packaging information: https://packaging.python.org/en/latest/specifications/core-metadata/#license
 [project.scripts]
-alembic-squawk = "alembic_squawk:main"
+alembic-squawk = "alembic_squawk.cli:main"
 
 
 [build-system]
