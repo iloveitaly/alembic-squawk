@@ -1,8 +1,8 @@
 [project]
 name = "alembic-squawk"
 version = "0.1.0"
-description = "Extracts raw SQL from Alembic, splits it by revision, and saves each file individually for SQL linters like Squawk."
-keywords = ["alembic", "squawk", "sql", "linter"]
+description = "Split Alembic migrations into per-revision SQL files for linting with Squawk."
+keywords = ["alembic", "squawk", "sql-linter", "migration"]
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
