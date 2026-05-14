@@ -33,6 +33,8 @@ dev = [
     "coverage>=7.13.4",
     "pytest-cov>=7.0.0",
     "covdefaults>=2.3.0",
+    "alembic>=1.18.4",
+    "sqlalchemy>=2.0.49",
 ]
 
 [tool.pyright]
