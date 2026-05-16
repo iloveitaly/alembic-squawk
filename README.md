@@ -83,7 +83,7 @@ uv run alembic-squawk --out-dir /tmp/alembic-squawk-lint
 squawk --assume-in-transaction --pg-version=15 /tmp/alembic-squawk-lint/*.sql
 ```
 
-[iloveitaly/python-starter-template](https://github.com/iloveitaly/python-starter-template) is a full Python app with a working integration of `alembic-squawk`.
+If you are looking for examples of how to set up Alembic, SQLModel, and SQLAlchemy, check out [iloveitaly/activemodel](https://github.com/iloveitaly/activemodel). Additionally, [iloveitaly/python-starter-template](https://github.com/iloveitaly/python-starter-template) is a full Python app with a working integration of `alembic-squawk`.
 
 ## [MIT License](LICENSE.md)
 
