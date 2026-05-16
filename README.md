@@ -11,7 +11,7 @@
 
 - Strips the outer `BEGIN`/`COMMIT` Alembic wraps the full dump in, so each file contains only its own migration SQL. Pass `--assume-in-transaction` to Squawk when linting.
 - Maps each revision back to its source `.py` file to preserve the original filename in output.
-- Reads `# -- squawk-ignore-file <rule>` Python comments from migration files and prepends them as SQL directives in the generated output, so you can attach Squawk ignores without embedding raw SQL comments in Python source.
+- Reads squawk directives (e.g. `# squawk-ignore-file <rule>`, `# squawk-disable <rule>`) embedded as Python comments in migration files and prepends them as SQL directives in the generated output, so you can attach Squawk ignores without embedding raw SQL comments in Python source.
 - Supports filtering by revision range or creation date to narrow linting to recently added migrations.
 
 ## Installation
@@ -40,7 +40,48 @@ The output directory is wiped and recreated on every run.
 
 Each file is named after its migration source file, e.g. `2026_03_16_d4b9da2f705c_add_users.sql`.
 
+## Ignoring Squawk Errors
+
+Squawk supports per-file ignore directives in SQL comments (e.g. `-- squawk-ignore-file ban-drop-column`). To attach these to a migration without embedding raw SQL comments in Python source, write the directive as a Python comment. The `--` prefix is optional.
+
+**Note:** The comment must be at the very beginning of the line. Indented comments (e.g., inside a function) or inline comments (e.g., `op.execute("...") # squawk-disable`) are not supported and will be ignored.
+
+For example, to hide a drop column error in your migration:
+
+```python
+"""add users table
+
+Revision ID: 1a2b3c4d5e6f
+Revises: 
+Create Date: 2026-03-16 10:22:01.123456
+"""
+
+# squawk-ignore-file ban-drop-column
+# -- squawk-disable require-concurrent-index-creation
+
+from typing import Sequence, Union
+
+
+from alembic import op
+import sqlalchemy as sa
+
+# ... migration code ...
+```
+
+When `alembic-squawk` generates the SQL for this revision, it will prepend those directives as standard SQL comments at the top of the file so Squawk honors them.
+
 ## Example
+
+Here is an end-to-end example of how you might integrate `alembic-squawk` into a CI script or standard shell workflow to lint your database migrations:
+
+```bash
+# generate per-revision SQL files
+uv run alembic-squawk --out-dir /tmp/alembic-squawk-lint
+
+# the generated SQL is not wrapped in a transaction, but the entire migration will be.
+# note: we use --assume-in-transaction so squawk knows to lint appropriately.
+squawk --assume-in-transaction --pg-version=15 /tmp/alembic-squawk-lint/*.sql
+```
 
 [iloveitaly/python-starter-template](https://github.com/iloveitaly/python-starter-template) is a full Python app with a working integration of `alembic-squawk`.
 

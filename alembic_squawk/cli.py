@@ -108,12 +108,13 @@ REVISION_ID_RE = re.compile(
 # Captures the date portion only (YYYY-MM-DD).
 CREATE_DATE_RE = re.compile(r"^Create Date: (\d{4}-\d{2}-\d{2})", re.MULTILINE)
 
-# Matches squawk-ignore-file directives embedded as Python comments in migration
+# Matches squawk directives embedded as Python comments in migration
 # source files, e.g.:
 #   # -- squawk-ignore-file ban-drop-column
+#   # squawk-disable require-concurrent-index-creation
 # These are extracted and re-emitted as plain SQL comments in the generated
 # output so Squawk honours them when linting the split files.
-SQUAWK_IGNORE_RE = re.compile(r"^#\s*(--\s*squawk-ignore-file\s+\S+)", re.MULTILINE)
+SQUAWK_IGNORE_RE = re.compile(r"^#\s*(?:--\s*)?(squawk-.*)", re.MULTILINE)
 
 
 @dataclass
@@ -273,7 +274,7 @@ def write_chunks(
         date_comment = (
             f"-- Created at: {chunk.created_date}\n" if chunk.created_date else ""
         )
-        ignore_comments = "".join(f"{d}\n" for d in chunk.squawk_ignores)
+        ignore_comments = "".join(f"-- {d}\n" for d in chunk.squawk_ignores)
         chunk_content = date_comment + ignore_comments + "\n".join(chunk.lines) + "\n"
         file_path.write_text(chunk_content, encoding="utf-8")
         written_files.append(file_path)

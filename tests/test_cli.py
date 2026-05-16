@@ -72,7 +72,7 @@ def test_cli_integration(tmp_path, monkeypatch):
     assert "CREATE TABLE users" in rev1_sql
 
     rev2_sql = (tmp_path / "2_rev2.sql").read_text()
-    assert "-- squawk-ignore-file require-concurrent-index-creation" in rev2_sql
+    assert "-- squawk-disable require-concurrent-index-creation" in rev2_sql
     assert "-- squawk-ignore-file ban-add-column-default" in rev2_sql
     assert "ALTER TABLE users ADD COLUMN email VARCHAR(255)" in rev2_sql
 

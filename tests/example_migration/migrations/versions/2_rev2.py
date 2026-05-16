@@ -2,7 +2,7 @@
 
 Create Date: 2026-03-02 10:00:00.000000
 """
-# -- squawk-ignore-file require-concurrent-index-creation
+# squawk-disable require-concurrent-index-creation
 # -- squawk-ignore-file ban-add-column-default
 
 revision = "rev2"
