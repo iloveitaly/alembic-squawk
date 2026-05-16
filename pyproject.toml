@@ -1,6 +1,6 @@
 [project]
 name = "alembic-squawk"
-version = "0.1.0"
+version = "0.2.0"
 description = "Split Alembic migrations into per-revision SQL files for linting with Squawk."
 keywords = ["alembic", "squawk", "sql-linter", "migration"]
 readme = "README.md"
