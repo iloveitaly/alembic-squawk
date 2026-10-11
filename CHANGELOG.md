@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.2.1](https://github.com/iloveitaly/alembic-squawk/compare/v0.2.0...v0.2.1) (2026-05-16)
+
+
+### Bug Fixes
+
+* resolve GHA linting failure and remove redundant test file ([f182e76](https://github.com/iloveitaly/alembic-squawk/commit/f182e7600b651e9fa1fb272011fd5a25dc77d8a8))
+
+
+### Documentation
+
+* update references to example repositories ([87644f1](https://github.com/iloveitaly/alembic-squawk/commit/87644f13543073df8b1b7ba04cdada63cb78078f))
+
 ## [0.2.0](https://github.com/iloveitaly/alembic-squawk/compare/v0.1.0...v0.2.0) (2026-05-16)
 
 
